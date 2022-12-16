@@ -1,17 +1,22 @@
-import math
 from tkinter import ttk
 from tkinter import *
 from tkinter import messagebox
+
+def get_gcd(x,y):
+    if y==0:            #rekurzivní funkce pro získání gcd. 
+        return x 
+    else:   
+        return get_gcd(y, x%y)      #dokud se moduloxy nebude rovnat nule, bude se funkce opakovat, jednotlivé členy se prohodí
 
 def congruent():
     a_get = int(a.get())
     b_get = int(b.get())
     mod_get = int(mod.get())
 
-    if b_get%math.gcd(a_get, mod_get)!=0: # pokud jednotlivé členy nemají společný násobek, rovnice nemá řešení.
+    if b_get%get_gcd(a_get, mod_get)!=0: # pokud jednotlivé členy nemají společný násobek, rovnice nemá řešení.
         messagebox.showinfo("error","rovnice nemá řešení")
 
-    nsd=math.gcd(a_get,mod_get)
+    nsd=get_gcd(a_get,mod_get)
     if b_get%nsd==0:   #pokud je b dělitelné NSD, můžeme pokračovat.
         a_get =a_get/nsd        #dělení společným násobkem
         b_get= b_get/nsd
